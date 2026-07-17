@@ -22,7 +22,11 @@
 
 #endif
 
+#if defined(OS_TYPE_UNIX)
 #include "./mmalloc/mmalloc.h"
+#else
+#include "./mmalloc/ansidecl.h"
+#endif
 
 // Area is an expandable buffer, allocated on the C heap.
 typedef struct area {
@@ -334,7 +338,7 @@ my_realloc (void *data __attribute__((unused)), void *ptr, size_t size)
 static void
 my_free (void *data __attribute__((unused)), void *ptr)
 {
-  return free (ptr);
+  free (ptr);
 }
 
 CAMLprim value
